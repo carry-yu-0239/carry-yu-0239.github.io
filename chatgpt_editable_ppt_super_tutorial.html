@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChatGPT 直接生成可编辑 PPT 超级详细教程</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --surface: #ffffff;
+      --surface-2: #f9fafc;
+      --text: #172033;
+      --muted: #687086;
+      --primary: #5b6cff;
+      --primary-dark: #3947d8;
+      --accent: #00b894;
+      --warning: #ffb020;
+      --danger: #ff5c7a;
+      --line: #e6e9f2;
+      --code-bg: #121827;
+      --code-text: #e9edf7;
+      --shadow: 0 18px 45px rgba(23, 32, 51, 0.10);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-sm: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(91, 108, 255, .16), transparent 32rem),
+        radial-gradient(circle at 85% 8%, rgba(0, 184, 148, .14), transparent 30rem),
+        linear-gradient(180deg, #ffffff 0%, var(--bg) 38%, #f4f6fb 100%);
+      line-height: 1.75;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 22px 72px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 34px;
+      background:
+        linear-gradient(135deg, rgba(23,32,51,.96), rgba(53,64,118,.95)),
+        radial-gradient(circle at 85% 15%, rgba(91,108,255,.7), transparent 20rem);
+      color: #fff;
+      padding: 64px 56px;
+      box-shadow: var(--shadow);
+      margin-bottom: 28px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      right: -80px;
+      top: -80px;
+      width: 310px;
+      height: 310px;
+      border-radius: 50%;
+      background: rgba(91, 108, 255, .35);
+      filter: blur(6px);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: -120px;
+      bottom: -160px;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: rgba(0, 184, 148, .22);
+      filter: blur(8px);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 850px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border: 1px solid rgba(255,255,255,.24);
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      color: rgba(255,255,255,.88);
+      font-size: 13px;
+      letter-spacing: .04em;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(34px, 6vw, 64px);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      margin: 0 0 18px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: rgba(255,255,255,.84);
+      max-width: 780px;
+      margin: 0;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 13px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.18);
+      font-size: 14px;
+      color: rgba(255,255,255,.88);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 292px minmax(0, 1fr);
+      gap: 26px;
+      align-items: start;
+    }
+
+    .toc {
+      position: sticky;
+      top: 18px;
+      background: rgba(255,255,255,.86);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(230,233,242,.9);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      box-shadow: 0 14px 35px rgba(23,32,51,.07);
+      max-height: calc(100vh - 36px);
+      overflow: auto;
+    }
+
+    .toc h2 {
+      font-size: 16px;
+      margin: 0 0 12px;
+      letter-spacing: .02em;
+    }
+
+    .toc a {
+      display: block;
+      padding: 8px 10px;
+      color: var(--muted);
+      border-radius: 10px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .toc a:hover {
+      background: #f1f3ff;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    main {
+      min-width: 0;
+    }
+
+    section {
+      background: rgba(255,255,255,.86);
+      border: 1px solid rgba(230,233,242,.95);
+      border-radius: var(--radius-lg);
+      padding: 34px;
+      margin-bottom: 22px;
+      box-shadow: 0 14px 34px rgba(23,32,51,.055);
+    }
+
+    section > h2 {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1.25;
+      margin: 0 0 18px;
+      letter-spacing: -0.03em;
+    }
+
+    .section-number {
+      display: inline-grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), #8d97ff);
+      color: #fff;
+      font-size: 16px;
+      flex: 0 0 auto;
+      box-shadow: 0 10px 24px rgba(91,108,255,.28);
+    }
+
+    h3 {
+      font-size: 22px;
+      margin: 30px 0 12px;
+      line-height: 1.35;
+      letter-spacing: -0.02em;
+    }
+
+    h4 {
+      font-size: 17px;
+      margin: 22px 0 8px;
+    }
+
+    p {
+      margin: 12px 0;
+    }
+
+    .lead {
+      font-size: 17px;
+      color: #3a4358;
+      background: linear-gradient(180deg, #f8f9ff, #ffffff);
+      border: 1px solid #eaedff;
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      box-shadow: 0 10px 28px rgba(23,32,51,.05);
+    }
+
+    .card h4 {
+      margin-top: 0;
+      display: flex;
+      gap: 9px;
+      align-items: center;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: #eef0ff;
+      color: var(--primary-dark);
+      font-weight: 700;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .tag.green {
+      background: #e7fbf5;
+      color: #048465;
+    }
+
+    .tag.yellow {
+      background: #fff7e6;
+      color: #99660a;
+    }
+
+    .tag.red {
+      background: #fff0f3;
+      color: #c72e53;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      margin: 22px 0;
+    }
+
+    .flow-step {
+      position: relative;
+      background: linear-gradient(180deg, #ffffff, #f8f9ff);
+      border: 1px solid #e8ebff;
+      border-radius: 18px;
+      padding: 18px 14px;
+      text-align: center;
+      min-height: 112px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .flow-step strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--primary-dark);
+    }
+
+    .flow-step span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .notice {
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      border: 1px solid;
+      margin: 18px 0;
+    }
+
+    .notice.info {
+      background: #f2f5ff;
+      border-color: #dfe4ff;
+    }
+
+    .notice.warn {
+      background: #fff9ed;
+      border-color: #ffe4ad;
+    }
+
+    .notice.danger {
+      background: #fff2f5;
+      border-color: #ffd2dd;
+    }
+
+    .notice.good {
+      background: #effcf8;
+      border-color: #c8f4e8;
+    }
+
+    .notice strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    ul, ol {
+      padding-left: 1.3em;
+    }
+
+    li {
+      margin: 6px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      margin: 18px 0;
+      background: #fff;
+    }
+
+    th, td {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f3f5ff;
+      color: #303a57;
+      font-size: 14px;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    td {
+      color: #3a4358;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius-md);
+    }
+
+    .code-block {
+      position: relative;
+      background: var(--code-bg);
+      color: var(--code-text);
+      border-radius: var(--radius-md);
+      margin: 16px 0 22px;
+      box-shadow: 0 16px 38px rgba(18,24,39,.18);
+      overflow: hidden;
+    }
+
+    .code-head {
+      height: 38px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 14px;
+      background: #1a2235;
+      color: #aab4cf;
+      font-size: 12px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .dots {
+      display: inline-flex;
+      gap: 6px;
+      margin-right: 8px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .dot.red { background: #ff5f57; }
+    .dot.yellow { background: #ffbd2e; }
+    .dot.green { background: #28c840; }
+
+    pre {
+      margin: 0;
+      padding: 18px 20px 22px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 14px;
+      line-height: 1.72;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    .check-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .check-icon {
+      flex: 0 0 auto;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: inline-grid;
+      place-items: center;
+      background: #e7fbf5;
+      color: #038567;
+      font-weight: 800;
+      line-height: 1;
+      margin-top: 2px;
+    }
+
+    .timeline {
+      position: relative;
+      margin: 20px 0 6px;
+      padding-left: 24px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: 4px;
+      bottom: 4px;
+      width: 2px;
+      background: #dde3ff;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 0 0 18px 18px;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -22px;
+      top: 5px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 0 5px #eef0ff;
+    }
+
+    .timeline-item strong {
+      display: block;
+      margin-bottom: 4px;
+      color: #2c3652;
+    }
+
+    .quote {
+      border-left: 4px solid var(--primary);
+      padding: 12px 18px;
+      background: #f7f8ff;
+      border-radius: 0 14px 14px 0;
+      color: #3a4358;
+      margin: 18px 0;
+    }
+
+    .mini-title {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-size: 12px;
+      font-weight: 800;
+      margin: 26px 0 8px;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 28px 0 0;
+      font-size: 14px;
+    }
+
+    .kbd {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 7px;
+      border-radius: 7px;
+      border: 1px solid #d9deeb;
+      background: #fff;
+      box-shadow: inset 0 -1px 0 rgba(23,32,51,.08);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: .88em;
+      color: #333d56;
+    }
+
+    .compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 18px 0;
+    }
+
+    .compare .bad {
+      border-color: #ffd2dd;
+      background: #fff7f9;
+    }
+
+    .compare .good {
+      border-color: #c8f4e8;
+      background: #f4fffb;
+    }
+
+    .big-summary {
+      background: linear-gradient(135deg, #f3f5ff, #effcf8);
+      border: 1px solid #dfe4ff;
+      border-radius: 24px;
+      padding: 24px;
+      margin: 26px 0 0;
+    }
+
+    .big-summary strong {
+      font-size: 22px;
+      display: block;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    @media (max-width: 980px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .toc {
+        position: relative;
+        top: auto;
+        max-height: none;
+      }
+
+      .flow {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .grid.two, .grid.three, .compare {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 26px 20px;
+      }
+
+      .hero {
+        padding: 44px 28px;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .page {
+        max-width: none;
+        padding: 0;
+      }
+
+      .toc {
+        display: none;
+      }
+
+      .layout {
+        display: block;
+      }
+
+      section, .hero {
+        box-shadow: none;
+        page-break-inside: avoid;
+      }
+
+      .code-block {
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="hero-content">
+        <div class="eyebrow">ChatGPT 可编辑 PPT 工作流 · 超级详细沉淀版</div>
+        <h1>用 ChatGPT 直接生成可编辑 PPT：从生图视觉稿到可下载 PPTX 的完整教程</h1>
+        <p>
+          这份教程把前面对话中的方法完整沉淀下来：如何用 ChatGPT 先生成产品介绍 PPT 视觉稿，如何拆分素材，如何还原为可编辑 PPTX，以及页数较多时如何防止丢记忆、漏页、跑风格。
+        </p>
+        <div class="hero-meta">
+          <span class="pill">适合：产品介绍、品牌展示、路演初稿、比赛 PPT</span>
+          <span class="pill">重点：文字可编辑、素材可移动、分批不丢页</span>
+          <span class="pill">核心方法：总控表 + 分批生成 + 分页拆素材 + 分批还原</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="toc">
+        <h2>目录</h2>
+        <a href="#overview">0. 先理解这套方法的本质</a>
+        <a href="#workflow">1. 总体流程图</a>
+        <a href="#phase1">2. 第一步：生成产品介绍 PPT 视觉稿</a>
+        <a href="#phase2">3. 第二步：拆分 PPT 素材</a>
+        <a href="#phase3">4. 第三步：还原并生成可编辑 PPTX</a>
+        <a href="#download">5. 下载、打开与检查</a>
+        <a href="#prompts">6. 三段式提示词模板</a>
+        <a href="#memory">7. 页数多会丢记忆怎么办</a>
+        <a href="#long-ppt">8. 10 页以上 PPT 的稳定做法</a>
+        <a href="#competition">9. 创业比赛 PPT 的特别建议</a>
+        <a href="#troubleshooting">10. 常见失败与补救</a>
+        <a href="#final">11. 最终操作清单</a>
+      </aside>
+
+      <main>
+        <section id="overview">
+          <h2><span class="section-number">0</span>先理解这套方法的本质</h2>
+          <p class="lead">
+            这套方法不是“ChatGPT 一句话直接变出完美 PPT”。它更像一个设计生产线：先让 ChatGPT 用生图能力做出完整页面视觉稿，再把视觉稿里的非文字素材拆出来，最后重新搭建成 PPTX，并把文字单独作为可编辑文本框插入。
+          </p>
+
+          <div class="compare">
+            <div class="card bad">
+              <h4><span class="tag red">误区</span> 以为第一步生成的就是可编辑 PPT</h4>
+              <p>第一步生成的通常只是“PPT 页面效果图”，看起来像 PPT，但本质更接近整页图片。图片里的标题、正文、参数文字多数不能直接编辑。</p>
+            </div>
+            <div class="card good">
+              <h4><span class="tag green">正确理解</span> 第三步才是真正生成 PPTX</h4>
+              <p>真正可编辑的部分来自第三步：重新把素材、形状、文字组合进 PPT 文件。文字必须用 PPT 文本框，简单图形尽量用 PPT 原生形状。</p>
+            </div>
+          </div>
+
+          <h3>这套方法最终能实现什么？</h3>
+          <div class="grid three">
+            <div class="card">
+              <h4>视觉设计更强</h4>
+              <p>比普通“大纲式 PPT”更有设计感，适合产品介绍、品牌招商、电商详情和视觉展示。</p>
+            </div>
+            <div class="card">
+              <h4>文字可编辑</h4>
+              <p>通过第三步重建 PPTX，让标题、正文、参数、卖点、按钮文字变成可直接修改的文本框。</p>
+            </div>
+            <div class="card">
+              <h4>素材可移动</h4>
+              <p>背景、产品图、图标、装饰图形可以作为独立 PNG 或 PPT 原生形状插入，方便后期调整。</p>
+            </div>
+          </div>
+
+          <div class="notice warn">
+            <strong>关键提醒</strong>
+            不要只说“帮我生成 PPT”。你要明确说明：最终文件必须是 <span class="kbd">.pptx</span>，文字必须可编辑，简单形状尽量用 PPT 原生形状，复杂图片素材才使用 PNG。
+          </div>
+        </section>
+
+        <section id="workflow">
+          <h2><span class="section-number">1</span>总体流程图</h2>
+          <p>完整工作流可以拆成五个阶段。最核心的是：不要把“漂亮视觉稿”和“可编辑 PPTX”混为一谈。</p>
+
+          <div class="flow">
+            <div class="flow-step">
+              <strong>上传产品图</strong>
+              <span>提供清晰产品图或参考图</span>
+            </div>
+            <div class="flow-step">
+              <strong>生成视觉稿</strong>
+              <span>先用生图方式做整页 PPT 效果图</span>
+            </div>
+            <div class="flow-step">
+              <strong>拆分素材</strong>
+              <span>把非文字图像和形状拆成 PNG</span>
+            </div>
+            <div class="flow-step">
+              <strong>还原 PPTX</strong>
+              <span>重新搭建页面，文字用文本框</span>
+            </div>
+            <div class="flow-step">
+              <strong>下载检查</strong>
+              <span>用 PowerPoint / WPS 打开修改</span>
+            </div>
+          </div>
+
+          <h3>为什么要这么麻烦？</h3>
+          <p>因为“好看”和“可编辑”是两个目标。生图模型擅长做漂亮画面，但它生成的是图片；PPT 文件需要可编辑对象，包括文本框、形状、图片层级和页面结构。拆分与重建，就是把视觉设计转化为办公软件可编辑对象的过程。</p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>阶段</th>
+                <th>产物</th>
+                <th>是否可编辑</th>
+                <th>主要风险</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>生成视觉稿</td>
+                <td>整页 PPT 效果图</td>
+                <td>基本不可编辑</td>
+                <td>文字可能乱码，元素粘在一起</td>
+              </tr>
+              <tr>
+                <td>拆分素材</td>
+                <td>单独 PNG 素材</td>
+                <td>可移动、可缩放</td>
+                <td>可能漏素材，透明背景不干净</td>
+              </tr>
+              <tr>
+                <td>还原 PPTX</td>
+                <td>可下载 PPT 文件</td>
+                <td>文字可编辑，图形部分可编辑或半可编辑</td>
+                <td>还原度可能不够，需要补改</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="phase1">
+          <h2><span class="section-number">2</span>第一步：生成产品介绍 PPT 视觉稿</h2>
+          <p class="lead">
+            第一步的目标是让 ChatGPT 先当“视觉设计师”，根据产品图做出一套完整的 PPT 页面效果图。这一步追求的是风格、排版、氛围和页面结构，不追求文字可编辑。
+          </p>
+
+          <h3>2.1 准备产品图片</h3>
+          <p>图片质量直接影响后续效果。推荐准备：</p>
+          <div class="checklist">
+            <div class="check-item"><span class="check-icon">✓</span><span>高清白底产品主图，主体完整、不被遮挡。</span></div>
+            <div class="check-item"><span class="check-icon">✓</span><span>多角度图，例如正面、侧面、细节图。</span></div>
+            <div class="check-item"><span class="check-icon">✓</span><span>使用场景图，例如水杯在办公室、户外、通勤等场景。</span></div>
+            <div class="check-item"><span class="check-icon">✓</span><span>不要上传过度压缩、主体太小、背景杂乱的图片。</span></div>
+          </div>
+
+          <h3>2.2 为什么要说“用生图的方式”？</h3>
+          <p>因为如果你只说“帮我做一个产品介绍 PPT”，ChatGPT 可能会输出文字大纲。你说“用生图的方式”，它更容易生成带背景、产品光影、装饰图形、场景元素和整体排版的视觉页面。</p>
+
+          <h3>2.3 推荐提示词</h3>
+          <div class="code-block">
+            <div class="code-head"><span class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></span>第一步：生成 PPT 视觉稿</div>
+            <pre>请参考我上传的产品图片，用生图的方式生成一套精美的产品介绍 PPT 视觉稿。
+
+要求：
+1. 共 6 页，16:9 横版；
+2. 风格：高级、简洁、现代、商业感；
+3. 页面包括：封面页、核心卖点页、产品细节页、使用场景页、产品参数页、结尾页；
+4. 每页都要有完整的版式设计，包括背景、产品图、装饰元素、图标、标题和正文区域；
+5. 整体风格统一，适合品牌展示、电商详情页、招商介绍；
+6. 先生成整套 PPT 的页面效果图。</pre>
+          </div>
+
+          <h3>2.4 这一步常见问题</h3>
+          <div class="grid two">
+            <div class="card">
+              <h4><span class="tag yellow">问题</span> 中文文字乱码</h4>
+              <p>生图里的中文很容易出现错字、乱码、笔画错误。不要在这一步纠结文字，因为第三步会重新插入可编辑文字。</p>
+            </div>
+            <div class="card">
+              <h4><span class="tag yellow">问题</span> 元素粘成一张图</h4>
+              <p>背景、产品图、装饰形状、图标都在整页图里，无法单独移动。所以后面必须拆素材。</p>
+            </div>
+            <div class="card">
+              <h4><span class="tag yellow">问题</span> 风格不稳定</h4>
+              <p>提示词中必须明确风格、颜色、页数、页面结构，不要只写“精美”。</p>
+            </div>
+            <div class="card">
+              <h4><span class="tag yellow">问题</span> 页数过多后混乱</h4>
+              <p>5–6 页可以一次做，超过 8 页建议分批做，后文会详细讲防丢记忆方法。</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="phase2">
+          <h2><span class="section-number">3</span>第二步：拆分 PPT 素材</h2>
+          <p class="lead">
+            第二步的目标是把整页视觉稿里的非文字元素拆成独立 PNG。这样第三步还原 PPT 时，就能把它们作为独立素材重新拼接。
+          </p>
+
+          <h3>3.1 需要拆哪些素材？</h3>
+          <div class="grid three">
+            <div class="card"><h4>产品相关</h4><p>产品主图、产品细节图、局部放大图、场景产品图。</p></div>
+            <div class="card"><h4>页面背景</h4><p>纯色背景、渐变背景、纹理背景、光影背景、场景背景。</p></div>
+            <div class="card"><h4>装饰元素</h4><p>圆形、线条、图标、色块、卡片、阴影、标签底纹、分割线。</p></div>
+          </div>
+
+          <h3>3.2 为什么要强调“不要文字”？</h3>
+          <p>因为你最终需要的 PPT 是可编辑的。如果拆出来的素材里包含文字，那么这些文字仍然是图片，打开 PPT 后无法直接修改。</p>
+
+          <div class="notice good">
+            <strong>正确目标</strong>
+            拆素材时只保留非文字视觉元素；文字内容在第三步重新用 PPT 文本框插入。
+          </div>
+
+          <h3>3.3 推荐提示词</h3>
+          <div class="code-block">
+            <div class="code-head"><span class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></span>第二步：拆分非文字素材</div>
+            <pre>请把刚才生成的整套 PPT 视觉稿中的所有非文字视觉素材拆分出来。
+
+要求：
+1. 每个素材单独导出为 PNG；
+2. 包括产品图、背景、装饰形状、图标、线条、色块、卡片、阴影、场景图等；
+3. 不要包含任何文字；
+4. 尽量使用透明背景；
+5. 按页面和素材类型命名，例如 page1_background.png、page1_product.png、page1_deco_circle.png；
+6. 如果素材太多，请自动分批生成，每批不超过 10 个素材，直到全部拆完；
+7. 每批生成后列出素材清单，避免遗漏。</pre>
+          </div>
+
+          <h3>3.4 页数多时不要整套拆，按页拆更稳</h3>
+          <p>如果一套 PPT 有 10 页以上，一次性拆所有素材非常容易遗漏。更稳定的方式是每次只拆 1 页，最多 2 页。</p>
+
+          <div class="code-block">
+            <div class="code-head"><span class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></span>按页拆分提示词</div>
+            <pre>请只拆分第 1 页视觉稿中的所有非文字素材。
+
+要求：
+1. 每个素材单独导出为 PNG；
+2. 不要包含任何文字；
+3. 尽量透明背景；
+4. 包括产品图、背景、装饰形状、图标、线条、色块、卡片、阴影等；
+5. 拆分完成后，输出第 1 页素材清单；
+6. 素材命名格式为：page1_素材类型_编号.png。</pre>
+          </div>
+
+          <h3>3.5 拆分阶段的检查清单</h3>
+          <div class="checklist">
+            <div class="check-item"><span class="check-icon">✓</span><span>每一页是否都有背景素材或可重建背景说明？</span></div>
+            <div class="check-item"><span class="check-icon">✓</span><span>产品主图是否单独拆出？</span></div>
+            <div class="check-item"><span class="check-icon">✓</span><span>图标、色块、卡片、装饰形状是否遗漏？</span></div>
+            <div class="check-item"><span class="check-icon">✓</span><span>素材里是否误带了文字？如果带了，需要重新导出无文字版本。</span></div>
+            <div class="check-item"><span class="check-icon">✓</span><span>透明背景是否干净？是否有白底、黑边、残影？</span></div>
+          </div>
+        </section>
+
+        <section id="phase3">
+          <h2><span class="section-number">4</span>第三步：还原并生成可编辑 PPTX</h2>
+          <p class="lead">
+            第三步才是把“图片视觉稿”变成“可编辑 PPT”的关键。它要根据视觉稿和素材重新搭建页面，并把所有文字做成 PPT 文本框。
+          </p>
+
+          <h3>4.1 什么叫“可编辑”？</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>元素类型</th>
+                <th>推荐做法</th>
+                <th>编辑能力</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>标题、正文、参数、卖点</td>
+                <td>用 PPT 文本框插入</td>
+                <td>可直接修改文字、字体、字号、颜色</td>
+              </tr>
+              <tr>
+                <td>矩形、圆形、线条、卡片</td>
+                <td>优先用 PPT 原生形状</td>
+                <td>可改颜色、大小、圆角、位置</td>
+              </tr>
+              <tr>
+                <td>产品图、复杂背景、光影、纹理</td>
+                <td>用 PNG 插入</td>
+                <td>可移动、缩放、裁剪，但不能完全矢量编辑</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>4.2 推荐提示词</h3>
+          <div class="code-block">
+            <div class="code-head"><span class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></span>第三步：生成可编辑 PPTX</div>
+            <pre>现在请根据第一次生成的 PPT 视觉稿，以及刚才拆分出的所有 PNG 素材，重新制作一份真正可编辑的 PPTX 文件。
+
+要求：
+1. 页面比例为 16:9；
+2. 页数保持 6 页；
+3. 尽量还原第一次生成的视觉稿，包括排版、颜色、层级、产品位置和装饰元素；
+4. 所有标题、正文、参数、卖点、按钮文字都必须用 PPT 文本框插入，不能作为图片；
+5. 文字必须可编辑；
+6. 圆形、矩形、线条、卡片、标签等简单图形，优先使用 PPT 原生形状绘制；
+7. 产品图、复杂背景、光影、纹理、装饰图可以使用 PNG；
+8. 每页元素分层清晰，方便我在 PowerPoint 或 WPS 中单独移动和修改；
+9. 请最终输出一个可下载的 .pptx 文件。</pre>
+          </div>
+
+          <h3>4.3 第三步的核心判断标准</h3>
+          <div class="grid two">
+            <div class="card">
+              <h4>好结果</h4>
+              <ul>
+                <li>下载的是 .pptx 文件；</li>
+                <li>文字能点开编辑；</li>
+                <li>图片和装饰元素能单独移动；</li>
+                <li>页面比例是 16:9；</li>
+                <li>视觉风格基本还原第一版。</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h4>坏结果</h4>
+              <ul>
+                <li>下载的是图片或 PDF，不是 PPTX；</li>
+                <li>文字仍然粘在整页图里；</li>
+                <li>每页只有一张大图；</li>
+                <li>素材缺失，背景和装饰不完整；</li>
+                <li>风格与第一版明显不一致。</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="notice danger">
+            <strong>最常见失败</strong>
+            PPT 打开后每一页都是一张整图，看起来漂亮但不能编辑。遇到这种情况，要明确要求重新生成，并强调“所有文字必须为 PPT 文本框，简单图形必须尽量用原生形状”。
+          </div>
+        </section>
+
+        <section id="download">
+          <h2><span class="section-number">5</span>下载、打开与检查</h2>
+          <p>生成完成后，ChatGPT 通常会给出一个可下载的 <span class="kbd">.pptx</span> 文件链接。下载后建议先用 Microsoft PowerPoint 打开检查；没有 PowerPoint 时，可以用 WPS Office。</p>
+
+          <h3>5.1 打开后第一件事：检查文字是否可编辑</h3>
+          <p>用鼠标点击标题或正文。如果能出现光标并修改文字，说明是文本框；如果点中的是整张图片，说明文字不可编辑。</p>
+
+          <div class="code-block">
+            <div class="code-head"><span class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></span>文字不可编辑时的补救提示词</div>
+            <pre>这份 PPT 中的文字仍然是图片，请重新制作一版。
+
+要求：
+1. 所有标题、正文、参数、卖点文字必须用 PPT 文本框插入；
+2. 确保文字可以直接编辑；
+3. 不要把整页压成图片；
+4. 保持原有页面设计和排版风格。</pre>
+          </div>
+
+          <h3>5.2 检查页面是否还原</h3>
+          <ul>
+            <li>产品位置是否准确；</li>
+            <li>背景是否完整；</li>
+            <li>图标和装饰是否缺失；</li>
+            <li>标题是否错位；</li>
+            <li>字体大小是否统一；</li>
+            <li>页面之间风格是否一致。</li>
+          </ul>
+
+          <h3>5.3 检查中文字体</h3>
+          <p>如果中文出现乱码、错位或字体替换严重，可以让 ChatGPT 使用常见中文字体，例如微软雅黑、等线、思源黑体等。</p>
+
+          <div class="code-block">
+            <div class="code-head"><span class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></span>字体修正提示词</div>
+            <pre>请重新生成 PPT，使用常见中文字体，例如微软雅黑、等线或思源黑体，保证在 PowerPoint 和 WPS 中打开不乱码、不错位。</pre>
+          </div>
+        </section>
+
+        <section id="prompts">
+          <h2><span class="section-number">6</span>三段式提示词模板</h2>
+          <p class="lead">下面这三段可以直接复制使用。建议按顺序执行，不要混在一条提示词里。</p>
+
+          <h3>6.1 生成 PPT 视觉稿</h3>
+          <div class="code-block">
+            <div class="code-head"><span class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></span>模板 1：视觉稿</div>
+            <pre>请参考我上传的产品图片，用生图的方式生成一套精美的产品介绍 PPT 视觉稿。
+
+要求：
+1. 共 6 页，16:9 横版；
+2. 风格：高级、简洁、现代、商业感；
+3. 页面包括：封面页、核心卖点页、产品细节页、使用场景页、产品参数页、结尾页；
+4. 每页都要有完整的版式设计，包括背景、产品图、装饰元素、图标、标题和正文区域；
+5. 整体风格统一，适合品牌展示、电商详情页、招商介绍；
+6. 先生成整套 PPT 的页面效果图。</pre>
+          </div>
+
+          <h3>6.2 拆分非文字素材</h3>
+          <div class="code-block">
+            <div class="code-head"><span class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></span>模板 2：拆素材</div>
+            <pre>请把刚才生成的整套 PPT 视觉稿中的所有非文字视觉素材拆分出来。
+
+要求：
+1. 每个素材单独导出为 PNG；
+2. 包括产品图、背景、装饰形状、图标、线条、色块、卡片、阴影、场景图等；
+3. 不要包含任何文字；
+4. 尽量使用透明背景；
+5. 按页面和素材类型命名，例如 page1_background.png、page1_product.png、page1_deco_circle.png；
+6. 如果素材太多，请自动分批生成，每批不超过 10 个素材，直到全部拆完；
+7. 每批生成后列出素材清单，避免遗漏。</pre>
+          </div>
+
+          <h3>6.3 生成可编辑 PPTX</h3>
+          <div class="code-block">
+            <div class="code-head"><span class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></span>模板 3：可编辑 PPTX</div>
+            <pre>现在请根据第一次生成的 PPT 视觉稿，以及刚才拆分出的所有 PNG 素材，重新制作一份真正可编辑的 PPTX 文件。
+
+要求：
+1. 页面比例为 16:9；
+2. 页数保持 6 页；
+3. 尽量还原第一次生成的视觉稿，包括排版、颜色、层级、产品位置和装饰元素；
+4. 所有标题、正文、参数、卖点、按钮文字都必须用 PPT 文本框插入，不能作为图片；
+5. 文字必须可编辑；
+6. 圆形、矩形、线条、卡片、标签等简单图形，优先使用 PPT 原生形状绘制；
+7. 产品图、复杂背景、光影、纹理、装饰图可以使用 PNG；
+8. 每页元素分层清晰，方便我在 PowerPoint 或 WPS 中单独移动和修改；
+9. 请最终输出一个可下载的 .pptx 文件。</pre>
+          </div>
+        </section>
+
+        <section id="memory">
+          <h2><span class="section-number">7</span>页数多会丢记忆怎么办？</h2>
+          <p class="lead">
+            你前面提出的担心非常关键：这种方法做太多页确实容易丢记忆。解决办法不是让 ChatGPT “记得更久”，而是让它每一步都围绕可复制的表格和清单工作。
+          </p>
+
+          <h3>7.1 为什么会丢？</h3>
+          <div class="grid two">
+            <div class="card">
+              <h4>上下文太长</h4>
+              <p>页数越多，视觉稿、素材清单、文案、修改要求越多，模型容易忘记前面页面。</p>
+            </div>
+            <div class="card">
+              <h4>对象太复杂</h4>
+              <p>一页 PPT 就有背景、产品、图标、文字、卡片、装饰等很多对象，20 页就是几百个对象。</p>
+            </div>
+            <div class="card">
+              <h4>任务链太长</h4>
+              <p>从生图到拆素材再到还原 PPTX，中间任意一步漏掉，后面都会连锁出错。</p>
+            </div>
+            <div class="card">
+              <h4>风格无总控</h4>
+              <p>如果没有统一风格规范，分批生成时容易出现前后页颜色、字体、版式节奏不一致。</p>
+            </div>
+          </div>
+
+          <h3>7.2 核心解决方案：不要让 ChatGPT 记，让文档记</h3>
+          <p>你需要建立四份“外部记忆文件”：</p>
+          <table>
+            <thead>
+              <tr>
+                <th>文件</th>
+                <th>作用</th>
+                <th>核心字段</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>PPT 总控表</td>
+                <td>记录每一页讲什么、长什么样</td>
+                <td>页码、标题、功能、核心文案、视觉元素、素材清单</td>
+              </tr>
+              <tr>
+                <td>视觉风格规范</td>
+                <td>确保分批生成时风格统一</td>
+                <td>主色、辅色、字体、卡片样式、图标风格、背景风格</td>
+              </tr>
+              <tr>
+                <td>素材清单</td>
+                <td>防止漏素材、错素材</td>
+                <td>页码、素材名、素材类型、用途、是否已导出</td>
+              </tr>
+              <tr>
+                <td>文案清单</td>
+                <td>确保所有文字可编辑且不乱</td>
+                <td>页码、标题、副标题、正文、参数、按钮文字</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>7.3 防丢记忆总提示词</h3>
+          <div class="code-block">
+            <div class="code-head"><span class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></span>防丢记忆总提示词</div>
+            <pre>接下来我要制作一套页数较多的可编辑 PPT。为避免上下文丢失，请你严格按照“总控表 + 分批生成 + 分页拆素材 + 分批还原 PPTX + 最终合并”的流程执行。
+
+规则如下：
+
+1. 不要一次性生成完整 PPT；
+2. 先生成 PPT 总控表，明确每一页的标题、功能、文案、视觉元素和素材清单；
+3. 每次最多处理 4 页；
+4. 每一批生成前，都要说明本批处理哪几页；
+5. 每一批生成后，都要更新进度表；
+6. 拆素材时必须按页拆分，不能整套混拆；
+7. 还原 PPT 时必须先分批生成小 PPTX，再最终合并；
+8. 所有文字必须用 PPT 文本框插入，不能作为图片；
+9. 简单图形尽量用 PPT 原生形状，复杂视觉元素才使用 PNG；
+10. 每次输出都要保留页码、素材名和对应关系。
+
+请先为这套 PPT 制作“PPT 总控表”和“视觉风格规范”，不要立刻生成图片。</pre>
+          </div>
+        </section>
+
+        <section id="long-ppt">
+          <h2><span class="section-number">8</span>10 页以上 PPT 的稳定做法</h2>
+          <p class="lead">
+            超过 8 页后，不建议一次性生成整套。最佳做法是每 3–5 页一组，逐组生成、逐组拆分、逐组还原，最后合并。
+          </p>
+
+          <h3>8.1 推荐分组方式</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>PPT 总页数</th>
+                <th>推荐分组</th>
+                <th>原因</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>5–6 页</td>
+                <td>可以一次做</td>
+                <td>上下文压力较小，素材数量可控</td>
+              </tr>
+              <tr>
+                <td>8–12 页</td>
+                <td>每 4 页一组</td>
+                <td>兼顾效率和稳定性</td>
+              </tr>
+              <tr>
+                <td>15–20 页</td>
+                <td>每 3–4 页一组</td>
+                <td>防止视觉风格跑偏和素材遗漏</td>
+              </tr>
+              <tr>
+                <td>30 页以上</td>
+                <td>每 3 页一组</td>
+                <td>必须依赖总控表、素材表和阶段合并</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>8.2 先生成 PPT 总控表</h3>
+          <div class="code-block">
+            <div class="code-head"><span class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></span>总控表提示词</div>
+            <pre>请先不要生成图片，也不要生成 PPT。
+
+请先为这套产品介绍 PPT 制作一份“PPT 总控表”，用于后续分批生成和防止丢失上下文。
+
+总控表字段包括：
+1. 页码
+2. 页面标题
+3. 页面功能
+4. 页面核心文案
+5. 主要视觉元素
+6. 需要拆分的素材
+7. 文字是否需要可编辑
+8. 备注
+
+整套 PPT 共 20 页，风格统一为高级、简洁、现代商业风。
+后续所有生成、拆素材、还原 PPT 都必须严格依据这份总控表执行。</pre>
+          </div>
+
+          <h3>8.3 分批生成视觉稿</h3>
+          <div class="code-block">
+            <div class="code-head"><span class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></span>生成第 1–4 页</div>
+            <pre>现在请根据上面的 PPT 总控表，只生成第 1–4 页的 PPT 视觉稿。
+
+要求：
+1. 只处理第 1–4 页，不要生成后面的页面；
+2. 四页风格必须统一；
+3. 每页比例 16:9；
+4. 页面文字可以先作为视觉占位，但后续还原 PPT 时必须重新做成可编辑文字；
+5. 每页生成后，请对应列出：页码、页面标题、主要视觉元素、后续需要拆分的素材清单。</pre>
+          </div>
+
+          <div class="code-block">
+            <div class="code-head"><span class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></span>继续第 5–8 页</div>
+            <pre>继续根据同一份 PPT 总控表，生成第 5–8 页视觉稿。
+
+要求延续第 1–4 页的整体风格，包括配色、字体气质、版式节奏、装饰元素和产品展示方式。
+不要重做第 1–4 页。</pre>
+          </div>
+
+          <h3>8.4 分批生成小 PPTX，再最终合并</h3>
+          <div class="code-block">
+            <div class="code-head"><span class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></span>分批还原 PPTX</div>
+            <pre>现在请根据第 1–4 页视觉稿和对应 PNG 素材，生成第 1–4 页的可编辑 PPTX 文件。
+
+要求：
+1. 只生成第 1–4 页；
+2. 页面比例 16:9；
+3. 尽量还原视觉稿；
+4. 所有文字必须用 PPT 文本框插入，不能作为图片；
+5. 圆形、矩形、线条、卡片等简单元素尽量用 PPT 原生形状；
+6. 产品图、复杂背景和光影可以使用 PNG；
+7. 输出可下载的 .pptx 文件。</pre>
+          </div>
+
+          <div class="code-block">
+            <div class="code-head"><span class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></span>最终合并 PPTX</div>
+            <pre>现在请将以下几个分批生成的 PPTX 合并为一份完整 PPT：
+
+第 1–4 页 PPTX
+第 5–8 页 PPTX
+第 9–12 页 PPTX
+第 13–16 页 PPTX
+第 17–20 页 PPTX
+
+要求：
+1. 保持页码顺序；
+2. 保持统一比例 16:9；
+3. 保持统一字体、配色和版式风格；
+4. 不要压成图片；
+5. 所有文字继续保持可编辑；
+6. 输出最终完整 .pptx 文件。</pre>
+          </div>
+
+          <h3>8.5 每批完成后更新进度表</h3>
+          <div class="code-block">
+            <div class="code-head"><span class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></span>进度表提示词</div>
+            <pre>请更新当前 PPT 制作进度表，字段包括：
+1. 已完成页码
+2. 页面标题
+3. 已生成视觉稿
+4. 已拆分素材
+5. 已还原 PPTX
+6. 是否存在问题
+7. 下一步任务</pre>
+          </div>
+        </section>
+
+        <section id="competition">
+          <h2><span class="section-number">9</span>创业比赛 PPT 的特别建议</h2>
+          <p class="lead">
+            对于“智汇狮跃 / 智汇龙腾”这类创业比赛 PPT，不建议过度依赖整套生图再拆素材的方法。比赛 PPT 的重点不是图片有多炫，而是逻辑清楚、文字可改、演示稳定、答辩顺畅。
+          </p>
+
+          <h3>9.1 比赛 PPT 更推荐的流程</h3>
+          <div class="flow">
+            <div class="flow-step">
+              <strong>逐页大纲</strong>
+              <span>先确定每页讲什么</span>
+            </div>
+            <div class="flow-step">
+              <strong>每页文案</strong>
+              <span>标题、要点、口播对应</span>
+            </div>
+            <div class="flow-step">
+              <strong>版式草图</strong>
+              <span>确定图文关系和视觉层级</span>
+            </div>
+            <div class="flow-step">
+              <strong>统一母版</strong>
+              <span>颜色、字体、卡片、页脚统一</span>
+            </div>
+            <div class="flow-step">
+              <strong>分页生成</strong>
+              <span>用 PPTX 原生元素搭建</span>
+            </div>
+          </div>
+
+          <h3>9.2 为什么比赛 PPT 不适合全部生图？</h3>
+          <div class="grid two">
+            <div class="card">
+              <h4>文字多，必须可改</h4>
+              <p>答辩 PPT 经常要改标题、数据、口径和页内要点。如果文字是图片，会非常痛苦。</p>
+            </div>
+            <div class="card">
+              <h4>逻辑强，不能丢页</h4>
+              <p>比赛 PPT 要讲政策、痛点、技术、产品、市场、商业模式、落地路径，每页都有叙事功能，不能靠图片堆。</p>
+            </div>
+            <div class="card">
+              <h4>演示要稳定</h4>
+              <p>答辩现场最怕文件打不开、排版错乱、字体乱码、页码混乱。</p>
+            </div>
+            <div class="card">
+              <h4>样机截图更重要</h4>
+              <p>像首页总览、动作识别、训练评分、数字基因库这类产品页面，最好用真实截图或高保真原型，而不是让生图凭空画。</p>
+            </div>
+          </div>
+
+          <h3>9.3 比赛 PPT 推荐提示词</h3>
+          <div class="code-block">
+            <div class="code-head"><span class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></span>创业比赛 PPT 分页生成提示词</div>
+            <pre>请为我的创业比赛项目生成一套可编辑 PPTX，但不要使用整页图片压缩。
+
+要求：
+1. 先输出逐页大纲和每页核心文案；
+2. 每页文字都必须用 PPT 文本框插入；
+3. 图表、流程图、卡片、时间轴尽量用 PPT 原生形状制作；
+4. 产品截图、复杂背景、装饰图可以作为图片插入；
+5. 整体风格统一，适合大学生创业比赛答辩；
+6. 每页信息不要堆太满，突出标题、核心结论和口播逻辑；
+7. 输出可下载的 .pptx 文件。</pre>
+          </div>
+
+          <div class="notice info">
+            <strong>适合智汇狮跃/智汇龙腾的判断</strong>
+            产品介绍型短 PPT 可以尝试“生图视觉稿 → 拆素材 → 还原 PPTX”。但创业比赛长 PPT 更适合“逐页大纲 → 统一母版 → 分页原生搭建 → 人工微调”。
+          </div>
+        </section>
+
+        <section id="troubleshooting">
+          <h2><span class="section-number">10</span>常见失败与补救</h2>
+
+          <h3>10.1 没有下载 PPT 链接</h3>
+          <div class="code-block">
+            <div class="code-head"><span class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></span>补救提示词</div>
+            <pre>请不要只输出说明，请直接生成一个可下载的 .pptx 文件。</pre>
+          </div>
+
+          <h3>10.2 下载的是图片，不是 PPT</h3>
+          <div class="code-block">
+            <div class="code-head"><span class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></span>补救提示词</div>
+            <pre>我需要的是 PowerPoint 文件，格式为 .pptx，不是图片。请重新生成可下载的 PPTX 文件。</pre>
+          </div>
+
+          <h3>10.3 文字不可编辑</h3>
+          <div class="code-block">
+            <div class="code-head"><span class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></span>补救提示词</div>
+            <pre>这份 PPT 中的文字仍然是图片，请重新制作一版。所有标题、正文、参数、卖点文字必须用 PPT 文本框插入，确保可以直接编辑。</pre>
+          </div>
+
+          <h3>10.4 素材遗漏</h3>
+          <div class="code-block">
+            <div class="code-head"><span class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></span>补救提示词</div>
+            <pre>请重新检查第一次生成的每一页视觉稿，补充遗漏的背景、装饰形状、图标、线条、卡片和产品细节素材。</pre>
+          </div>
+
+          <h3>10.5 PPT 还原度不高</h3>
+          <div class="code-block">
+            <div class="code-head"><span class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></span>补救提示词</div>
+            <pre>请根据第一版视觉稿重新调整 PPT，重点还原每页的版式、产品位置、背景层次、装饰元素和视觉比例。</pre>
+          </div>
+
+          <h3>10.6 页数多导致前后不一致</h3>
+          <div class="code-block">
+            <div class="code-head"><span class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></span>补救提示词</div>
+            <pre>请根据 PPT 总控表和视觉风格规范重新检查全套 PPT，统一以下内容：
+1. 主色和辅色；
+2. 标题字体和字号；
+3. 正文字体和字号；
+4. 卡片圆角和阴影；
+5. 图标风格；
+6. 页码和页脚；
+7. 每页留白和版式节奏。
+
+不要改变每页核心内容，只做统一风格和排版修正。</pre>
+          </div>
+        </section>
+
+        <section id="final">
+          <h2><span class="section-number">11</span>最终操作清单</h2>
+          <p class="lead">下面是最稳的实际执行顺序。你可以按这个清单一步一步做。</p>
+
+          <div class="timeline">
+            <div class="timeline-item">
+              <strong>第 1 步：准备素材</strong>
+              <span>准备高清产品图、参考风格、品牌色、页面数量和用途。</span>
+            </div>
+            <div class="timeline-item">
+              <strong>第 2 步：先做总控表</strong>
+              <span>超过 8 页时，先让 ChatGPT 输出 PPT 总控表和视觉风格规范。</span>
+            </div>
+            <div class="timeline-item">
+              <strong>第 3 步：生成视觉稿</strong>
+              <span>5–6 页可以一次生成；10 页以上每 3–4 页一组。</span>
+            </div>
+            <div class="timeline-item">
+              <strong>第 4 步：按页拆素材</strong>
+              <span>每一页拆出无文字 PNG，记录素材清单，避免遗漏。</span>
+            </div>
+            <div class="timeline-item">
+              <strong>第 5 步：分批还原 PPTX</strong>
+              <span>先生成小 PPTX，确认文字可编辑，再继续下一批。</span>
+            </div>
+            <div class="timeline-item">
+              <strong>第 6 步：合并与统一</strong>
+              <span>合并分批文件，统一字体、颜色、页码、母版和视觉节奏。</span>
+            </div>
+            <div class="timeline-item">
+              <strong>第 7 步：本地打开检查</strong>
+              <span>用 PowerPoint 或 WPS 检查文字、素材、排版、字体和页面顺序。</span>
+            </div>
+          </div>
+
+          <div class="big-summary">
+            <strong>一句话总结</strong>
+            不要让 ChatGPT 靠记忆做长 PPT，要让它靠“页码表、素材表、文案表、进度表”做长 PPT。短产品展示可以用生图法，长答辩 PPT 必须用总控表分批推进。
+          </div>
+
+          <h3>最终推荐策略</h3>
+          <div class="grid two">
+            <div class="card">
+              <h4><span class="tag green">5–8 页产品介绍</span></h4>
+              <p>可以使用“生图视觉稿 → 拆素材 → 还原可编辑 PPTX”的方法，效率高、视觉效果好。</p>
+            </div>
+            <div class="card">
+              <h4><span class="tag yellow">10 页以上 / 比赛 PPT</span></h4>
+              <p>必须使用“总控表 → 分批生成 → 分页拆素材 → 分批 PPTX → 最终合并”的方法，稳定性更高。</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="footer">
+          本教程由前面对话内容整理沉淀而成，可作为后续制作可编辑 PPT 的操作手册。
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
