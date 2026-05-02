@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>一封写给故土与血脉的侨批</title>
+<style>
+:root {
+  --ink: #2c241c;
+  --muted: #7b6554;
+  --paper: #f7f0e5;
+  --paper-deep: #ead8c2;
+  --line: rgba(90, 61, 38, .18);
+  --gold: #b88b4a;
+  --shadow: 0 32px 90px rgba(64, 42, 23, .18);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  font-family: "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "SimSun", serif;
+  background:
+    radial-gradient(circle at 12% 12%, rgba(184,139,74,.24), transparent 28rem),
+    radial-gradient(circle at 88% 18%, rgba(92,65,44,.13), transparent 24rem),
+    radial-gradient(circle at 50% 95%, rgba(184,139,74,.16), transparent 28rem),
+    linear-gradient(135deg, #f4eadc 0%, #fbf7ef 45%, #ead9c5 100%);
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .22;
+  background-image:
+    linear-gradient(rgba(92, 65, 44, .12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(92, 65, 44, .08) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(circle at center, #000, transparent 78%);
+}
+.wrap {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: clamp(36px, 7vw, 88px) 0;
+}
+.sheet {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 34px;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.56), rgba(255,255,255,.16)),
+    linear-gradient(180deg, rgba(255,255,255,.9), rgba(247,240,229,.92));
+  box-shadow: var(--shadow);
+}
+.sheet::before,
+.sheet::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  pointer-events: none;
+}
+.sheet::before {
+  width: 460px;
+  height: 460px;
+  right: -210px;
+  top: -220px;
+  border: 1px solid rgba(184,139,74,.32);
+  box-shadow: inset 0 0 0 46px rgba(184,139,74,.05);
+}
+.sheet::after {
+  width: 280px;
+  height: 280px;
+  left: -120px;
+  bottom: -120px;
+  background: radial-gradient(circle, rgba(184,139,74,.16), transparent 70%);
+}
+.hero {
+  position: relative;
+  padding: clamp(42px, 8vw, 92px) clamp(24px, 7vw, 96px) clamp(22px, 5vw, 48px);
+}
+h1 {
+  margin: 0;
+  max-width: 780px;
+  font-size: clamp(2.2rem, 5.8vw, 5.4rem);
+  font-weight: 500;
+  letter-spacing: .08em;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+.hero-line {
+  width: min(360px, 54vw);
+  height: 1px;
+  margin-top: clamp(28px, 5vw, 52px);
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+.content {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(22px, 4vw, 36px);
+  padding: 0 clamp(24px, 7vw, 96px) clamp(44px, 8vw, 96px);
+}
+.prose {
+  width: min(760px, 100%);
+  margin-left: auto;
+}
+.prose p {
+  margin: 0 0 1.72em;
+  font-size: clamp(1.06rem, 1.38vw, 1.28rem);
+  line-height: 2.18;
+  letter-spacing: .045em;
+  text-align: justify;
+}
+.prose p:first-child::first-letter {
+  float: left;
+  padding: .08em .16em .02em 0;
+  font-size: 4.7em;
+  line-height: .86;
+  color: var(--gold);
+}
+.quotes {
+  position: relative;
+  margin: clamp(8px, 2vw, 20px) 0 0 auto;
+  width: min(680px, 100%);
+  padding: clamp(26px, 4.8vw, 56px);
+  border: 1px solid rgba(184,139,74,.28);
+  border-radius: 28px;
+  background:
+    linear-gradient(135deg, rgba(184,139,74,.12), transparent 42%),
+    rgba(255, 251, 244, .62);
+  box-shadow: 0 18px 52px rgba(64, 42, 23, .1);
+}
+.quotes::before {
+  content: "";
+  position: absolute;
+  inset: 13px;
+  border: 1px solid rgba(90,61,38,.10);
+  border-radius: 21px;
+  pointer-events: none;
+}
+.quotes p {
+  position: relative;
+  margin: 0;
+  font-size: clamp(1.25rem, 2.2vw, 2rem);
+  line-height: 2.05;
+  letter-spacing: .08em;
+  color: #4b3828;
+}
+.quotes p + p { margin-top: 1.25em; }
+@media (max-width: 760px) {
+  .wrap { width: min(100% - 20px, 1120px); padding: 10px 0; }
+  .sheet { border-radius: 24px; }
+  .hero { padding-top: 42px; }
+  .prose { margin-left: 0; }
+  .prose p { text-align: left; line-height: 2.05; }
+  .prose p:first-child::first-letter { font-size: 3.7em; }
+}
+@media print {
+  body { background: #fff; }
+  body::before, .sheet::before, .sheet::after { display: none; }
+  .wrap { width: 100%; padding: 0; }
+  .sheet { box-shadow: none; border: 0; border-radius: 0; }
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+<article class="sheet">
+<header class="hero">
+<h1>一封写给故土与血脉的侨批</h1>
+<div class="hero-line" aria-hidden="true"></div>
+</header>
+<div class="content">
+<section class="prose">
+<p>当熟悉的潮音响起，当银幕上浮现出工夫茶升腾的氤氲水汽，当橄榄菜的咸香仿佛穿透光影扑面而来时，作为一个潮汕人，心底最深处那根关于“根”的弦，被轻轻拨动了。这不仅仅是一部电影，更像是一次集体的寻根，一次对祖辈记忆的深情回望。导演蓝鸿春用他一贯的真诚与细腻，将镜头对准了那些被时光尘封的“侨批”，也对准了我们血脉里流淌的坚韧与情义。</p>
+<p>最让我感动的，首先是刻在潮汕人骨子里的精神图腾——那种在海外异乡，同胞之间不分彼此、守望相助的团结与温情。电影里，南枝到银信局想寄木生讣告时，潮汕人相互帮助的一幕，朴实无华，却有着直击人心的力量。这不仅是潮汕人的特质，更是所有华人漂泊在外时，那份“胶己人”的宝贵情谊。它告诉我们，无论走多远，那份源自故土的认同与扶持，是支撑我们走过艰难岁月的最温暖的光。</p>
+<p>其次，是两位伟大的潮汕女性所展现出来的自立自强与高风亮节的拼搏精神。影片没有将她们塑造成苦情戏里等待救赎的怨妇，而是赋予了她们真实的血肉与灵魂。故乡的阿嬷，在阿公过番失联后，独自一人扛起家庭重担，将平凡的日子过得有条不紊，她的温柔里藏着不动声色的倔强。而远在南洋的南枝，更是用一生的坚守，诠释了何为“情义”二字。她们如同大地上最坚韧的植物，在风雨中默默生长，用柔弱的肩膀撑起了家族的希望与传承。</p>
+<p>再然后，是那段相隔万里、跨越生死的伟大爱情。它没有轰轰烈烈的誓言，却在“平安当大赚”的谎话里，在数十年如一日的书信中，在寄回的腊肉与自行车等细节里，写尽了最深沉的爱恋与牵挂。当阿嬷得知真相，没有歇斯底里，只是轻轻抚着信纸说：“我等的不是钱，是一句我回来了。”那一刻，所有的眼泪都找到了决堤的出口。这份爱，超越了简单的男女之情，升华为一种对承诺的坚守，对故土的眷恋，以及对生命本身的尊重。</p>
+<p>剧情方面就不多说了，优秀到让我不想透露一丝一毫，请你务必到影院欣赏原汁原味的绝美剧情。每一个反转，每一次情感的递进，都恰到好处，笑中带泪，后劲十足。</p>
+<p>其实，作为潮汕人和广财的学子，我有着双倍的感触。首先是扎根于生活，而高于生活的艺术创作永远是能最打动人心的。当你用潮汕人的语境打开镜头，那些藏在祖辈话语里的心酸与亲密就会更加势如破竹地闯进胸膛。看到广财的潮汕学姐作为主演出演了这么优秀的电影，也是十分自豪，倍感荣幸。她饰演的南枝，仿佛就是从我们身边的长辈故事中走出来的，那份真实感，让人信服，也让人动容。</p>
+<p>这封《给阿嬷的情书》，写给的不只是电影里的阿嬷，更是写给每一位在岁月长河中默默坚守的潮汕先辈，写给我们共同的乡愁与情义。它让我们懂得，最动人的情感，从来都藏在平凡的日子里，藏在一封家书、一顿饭菜、一句叮嘱里。愿我们都能读懂这份温柔与坚韧，珍惜身边的亲情，铭记自己的根与来路。</p>
+</section>
+<section class="quotes">
+<p>恰江上升明月，似与你并肩共赏，江海万里，心中念你，便不觉遥远</p>
+<p>梦醒走至寨门前，溪水潺潺，你仍是少年模样，好梦便以知足</p>
+</section>
+</div>
+</article>
+</main>
+</body>
+</html>
