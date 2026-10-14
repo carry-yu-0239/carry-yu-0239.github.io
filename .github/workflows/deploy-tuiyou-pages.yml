@@ -1,0 +1,77 @@
+name: Deploy and validate DOCX form (Pages)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "tuiyou/**"
+      - ".github/workflows/deploy-tuiyou-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Check HTML and embedded Word template
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64
+          import io
+          import re
+          import zipfile
+
+          path = Path("tuiyou/index.html")
+          html = path.read_text(encoding="utf-8")
+          assert html.lstrip().lower().startswith("<!doctype html>"), "Invalid HTML entrypoint"
+          assert "<title>" in html, "Missing HTML page title"
+          match = re.search(r"const EMBEDDED_TEMPLATE\s*=\s*'([A-Za-z0-9+/=]+)'", html)
+          assert match, "Missing embedded Word template"
+          data = base64.b64decode(match.group(1), validate=True)
+          with zipfile.ZipFile(io.BytesIO(data)) as archive:
+              required = {"[Content_Types].xml", "word/document.xml"}
+              assert required.issubset(set(archive.namelist())), "Invalid DOCX template"
+              assert archive.testzip() is None, "Corrupt embedded DOCX file"
+          print(f"Validation passed: {path}, {len(data)} DOCX bytes")
+          PY
+
+      - name: Prepare Pages artifact (keep existing public pages)
+        shell: bash
+        run: |
+          mkdir -p _site
+          rsync -a \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='_site/' \
+            ./ _site/
+          touch _site/.nojekyll
+          test -s _site/tuiyou/index.html
+          test -s _site/Film_Review.html
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload static website
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
